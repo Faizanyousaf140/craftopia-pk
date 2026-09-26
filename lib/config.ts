@@ -17,4 +17,4 @@ export const SITE_TAGLINE = "Made by Hand. Made to Belong.";
 export const SITE_DESCRIPTION =
   "Discover handcrafted embroidery, home décor, cushions, bags, clutches and custom creations by Craftopia.pk.";
 
-export const SITE_URL = "https://craftopia.pk";
+export const SITE_URL = "https://craftopia-pk.vercel.app";
