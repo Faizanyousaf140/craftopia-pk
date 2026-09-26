@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+:root {
+  /* ===== Brand tokens — change these to re-theme the site ===== */
+  --color-cream: #f6f1e7;
+  --color-cream-soft: #efe7d8;
+  --color-charcoal: #2b241d;
+  --color-charcoal-soft: #4a4038;
+  --color-gold: #b08d57;
+  --color-gold-soft: #cfa96a;
+  --color-terracotta: #b9633f;
+  --color-olive: #6f7a4a;
+  --color-line: #ddd2ba;
+
+  --background: var(--color-cream);
+  --foreground: var(--color-charcoal);
+
+  --font-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino,
+    Georgia, "Times New Roman", serif;
+  --font-sans: "Avenir Next", "Century Gothic", Futura, "Segoe UI", -apple-system,
+    BlinkMacSystemFont, system-ui, sans-serif;
+
+  /* Shared depth token for every "photo card" surface (product cards, PDP
+     gallery, collection tiles, studio/about photos) so they read as one
+     consistent system instead of four hand-typed shadow strings. */
+  --shadow-card: 0 6px 20px rgba(36, 24, 15, 0.06);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-cream: var(--color-cream);
+  --color-cream-soft: var(--color-cream-soft);
+  --color-charcoal: var(--color-charcoal);
+  --color-charcoal-soft: var(--color-charcoal-soft);
+  --color-gold: var(--color-gold);
+  --color-gold-soft: var(--color-gold-soft);
+  --color-terracotta: var(--color-terracotta);
+  --color-olive: var(--color-olive);
+  --color-line: var(--color-line);
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+  --shadow-card: var(--shadow-card);
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+h1, h2, h3, h4,
+.font-serif-display {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+::selection {
+  background: var(--color-gold-soft);
+  color: var(--color-charcoal);
+}
+
+/* Visible, brand-consistent focus ring for keyboard navigation */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Subtle underline-on-hover link style used across the site */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.35s ease;
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* One consistent "photo card" frame for product cards, the PDP gallery,
+   collection tiles and studio/about photos. */
+.media-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-sm, 0.25rem);
+  border: 1px solid rgba(76, 58, 42, 0.1);
+  background: var(--color-cream-soft);
+  box-shadow: var(--shadow-card);
+}
+
+/* CSS-driven entrance reveals for content that must be visible even before
+   JS hydrates (e.g. the hero headline). Framer Motion equivalents elsewhere
+   are gated globally via <MotionConfig reducedMotion="user"> in app/layout.tsx. */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes reveal-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.reveal-up {
+  animation: reveal-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.reveal-scale {
+  animation: reveal-scale 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
